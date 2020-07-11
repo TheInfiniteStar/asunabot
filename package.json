@@ -4,7 +4,7 @@
   "description": "Dune's Best Friend",
   "main": "asuna.js",
   "scripts": {
-    "start":"node(asuna).js"
+    "start":"node asuna.js"
   },
   "author": "TheInfiniteStar",
   "license": "ISC",
