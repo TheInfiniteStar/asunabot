@@ -4,7 +4,7 @@
   "description": "Dune's Best Friend",
   "main": "asuna.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start":"node(asuna).js"
   },
   "author": "TheInfiniteStar",
   "license": "ISC",
