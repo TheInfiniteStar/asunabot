@@ -2,15 +2,18 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client()
 
+const ms = require('ms')
+
 const prefix = 'a.';
 
 const fs = require('fs');
+const { execute } = require('./commands/yes');
 
 client.commands = new Discord.Collection();
 
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){
-    const command = require(`./commmands/${file}`);
+    const command = require(`./commands/${file}`);
 
     client.commands.set(command.name, command);
 }
@@ -32,93 +35,36 @@ client.on('message', message =>{
     } else if (command == 'freerobux'){
         message.channel.send('no');
     } else if (command == 'help'){
-        message.channel.send('This is the list of commands: `ping` `youtube` `freerobux` `help` '); 
-    }  if (!message.guild) return;
-
-    // if the message content starts with "a.ban"
-    if (message.content.startsWith('a.ban')) {
-      // Assuming we mention someone in the message, this will return the user
-      // Read more about mentions over at https://discord.js.org/#/docs/main/master/class/MessageMentions
-      const user = message.mentions.users.first();
-      // If we have a user mentioned
-      if (user) {
-        // Now we get the member from the user
-        const member = message.guild.member(user);
-        // If the member is in the guild
-        if (member) {
-          /**
-           * Ban the member
-           * Make sure you run this on a member, not a user!
-           * There are big differences between a user and a member
-           * Read more about what ban options there are over at
-           * https://discord.js.org/#/docs/main/master/class/GuildMember?scrollTo=ban
-           */
-          member
-            .ban({
-              reason: 'They were bad!',
-            })
-            .then(() => {
-              // We let the message author know we were able to ban the person
-              message.reply(`Successfully banned ${user.tag}`);
-            })
-            .catch(err => {
-              // An error happened
-              // This is generally due to the bot not being able to ban the member,
-              // either due to missing permissions or role hierarchy
-              message.reply('I was unable to ban the member');
-              // Log the error
-              console.error(err);
-            });
-        } else {
-          // The mentioned user isn't in this guild
-          message.reply("That user isn't in this guild!");
-        }
-      } else {
-        // Otherwise, if no user was mentioned
-        message.reply("Who do u want to ban Kirito-kun?");
-      }
-    }   if (!message.guild) return;
-
-    // If the message content starts with "!kick"
-    if (message.content.startsWith('a.kick')) {
-      // Assuming we mention someone in the message, this will return the user
-      // Read more about mentions over at https://discord.js.org/#/docs/main/master/class/MessageMentions
-      const user = message.mentions.users.first();
-      // If we have a user mentioned
-      if (user) {
-        // Now we get the member from the user
-        const member = message.guild.member(user);
-        // If the member is in the guild
-        if (member) {
-          /**
-           * Kick the member
-           * Make sure you run this on a member, not a user!
-           * There are big differences between a user and a member
-           */
-          member
-            .kick('Optional reason that will display in the audit logs')
-            .then(() => {
-              // We let the message author know we were able to kick the person
-              message.reply(`Successfully kicked ${user.tag}`);
-            })
-            .catch(err => {
-              // An error happened
-              // This is generally due to the bot not being able to kick the member,
-              // either due to missing permissions or role hierarchy
-              message.reply('I was unable to kick the member');
-              // Log the error
-              console.error(err);
-            });
-        } else {
-          // The mentioned user isn't in this guild
-          message.reply("That user isn't in this guild!");
-        }
-        // Otherwise, if no user was mentioned
-      } else {
-        message.reply("Who do u want to kick Kirito-kun?");
-      }
+        message.channel.send('This is the list of commands: ```ping, bruh, kiss, sorry, yes, youtube, dumb, kill, hug, tea, freerobux, help, shut, av``` '); 
+    } else if (command == 'shut'){
+       const user = message.mentions.users.first(); 
+        message.channel.send(`Shut the fuck up ${user.tag}`);
+    } else if (command == 'av'){
+        message.reply(message.author.displayAvatarURL());
+    } else if (command == 'yes'){
+        client.commands.get('yes').execute(message, args);
+    } else if (command == 'kill'){
+        client.commands.get('im ash').execute(message, args);
+    } else if (command == 'hug'){
+        client.commands.get('hug').execute(message, args);
+    } else if (command == 'sorry'){
+        client.commands.get('hug').execute(message, args);
+    } else if (command == 'tea'){
+        client.commands.get('tea').execute(message, args);
+    } else if (command == 'kiss'){
+        client.commands.get('kiss').execute(message, args);
+    } else if (command == 'bruh'){
+        client.commands.get('bruh').execute(message, args);
+    } else if (command == 'dumb'){
+        client.commands.get('dumb').execute(message, args);
+    } else if (command == 'obli'){
+        client.commands.get('obli').execute(message, args);
+    } else if (command == 'slap'){
+        client.commands.get('slap').execute(message, args);      
     }
+      if (!message.guild) return;
+ 
   }); 
 
-client.login(process.env.BOT_TOKEN);
+client.login('NzMxMDg0NTc5MjA0NjI4NTMw.XwrgUA.VqrOybNXUmcqf1vSSrNKXOtWmoE');
 
